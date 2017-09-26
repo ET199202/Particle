@@ -50,7 +50,27 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	if (mouse_pressed) {
+		for (int i = 0; i < N; i++) {
+			Particle &p = particles[i];
+			if (particles[i].f)continue;
+			p.x = mouseX;
+			p.y = mouseY;
+			p.vx = ofRandom(-5, 5);
+			p.vy = ofRandom(-5, 5);
+			p.radius = ofRandom(5, 15);
+			p.f = true;
+		}
+	}
 
+	for (int i = 0; i < N; i++) {
+		Particle& p = particles[i];
+		if (!p.f) continue;
+		p.update();
+		if (p.y > H + p.radius) {
+			p.f = false;
+		}
+	}
 }
 
 //--------------------------------------------------------------
